@@ -1,5 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const UserModel = require("../models/user.model");
 
 const router = express.Router();
 
@@ -21,12 +22,18 @@ router.get(
         success: false,
         message: "Invalid user",
       });
+   
+    const user = await UserModel.findById(decode.id);
+   
+    // user add ker diya req se boo bhhe esse se hoagaga suru se nahii hoata add.
+    req.user = user ;
 
     next();
   },
   (req, res) => {
     res.status(200).json({
       message: "I m home route",
+      data: req.user,
     });
   },
 );
