@@ -79,6 +79,7 @@ const loginController = async (req, res) => {
     }
 
 /////////////////////////////////////////////
+// yee ghar pe likhaha thaa :
 ////////////////////////////////////////////
     const tooken = jwt.sign(
       { id: isUserExist._id },
@@ -100,6 +101,7 @@ const loginController = async (req, res) => {
       error,
     });
   }
+
 };
 
 module.exports = {
