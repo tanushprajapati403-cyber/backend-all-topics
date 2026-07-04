@@ -4,11 +4,6 @@ import { api } from "../config/axiosinstance";
 const Login = ({ setToggle }) => {
   const [formData, setFormData] = useState({});
 
-  const handleChnage = (e) => {
-    let { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,6 +13,11 @@ const Login = ({ setToggle }) => {
     } catch (error) {
       console.log("error in register api", error);
     }
+  };
+
+  const handleChnage = (e) => {
+    let { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -39,6 +39,7 @@ const Login = ({ setToggle }) => {
 
             <input
               onChange={handleChnage}
+              name="email"
               type="email"
               placeholder="Enter your email"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -52,6 +53,7 @@ const Login = ({ setToggle }) => {
 
             <input
               onChange={handleChnage}
+              name="password"
               type="password"
               placeholder="Enter your password"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"

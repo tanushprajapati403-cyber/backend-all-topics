@@ -4,12 +4,7 @@ import { api } from "../config/axiosinstance";
 const Register = ({ setToggle }) => {
   const [formData, setFormData] = useState({});
 
-  const handelSubmit = (e) => {
-    let { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handelChnage = async (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
     try {
       let res = await api.post("/api/auth/register", formData);
@@ -17,6 +12,11 @@ const Register = ({ setToggle }) => {
     } catch (error) {
       console.log("error in register api", error);
     }
+  };
+
+  const handelChnage = (e) => {
+    let { name , value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -38,6 +38,7 @@ const Register = ({ setToggle }) => {
 
             <input
               onChange={handelChnage}
+              name="name"
               type="text"
               placeholder="Enter your full name"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -51,6 +52,7 @@ const Register = ({ setToggle }) => {
 
             <input
               onChange={handelChnage}
+              name="email"
               type="email"
               placeholder="Enter your email"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -64,6 +66,7 @@ const Register = ({ setToggle }) => {
 
             <input
               onChange={handelChnage}
+              name="password"
               type="password"
               placeholder="Create a password"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
