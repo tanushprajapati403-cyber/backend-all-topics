@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { api } from "../config/axiosinstance";
+import { useDispatch } from "react-redux";
+import { addUser } from "../features/AuthSlice";
 
 const Login = ({ setToggle }) => {
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -10,6 +13,7 @@ const Login = ({ setToggle }) => {
     try {
       let res = await api.post("/api/auth/login", formData);
       console.log(res.data.data);
+      dispatch(addUser(res.data.data));
     } catch (error) {
       console.log("error in register api", error);
     }
