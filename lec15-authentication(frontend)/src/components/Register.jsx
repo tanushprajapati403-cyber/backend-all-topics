@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from "react";
+import { api } from "../config/axiosinstance";
 
 const Register = ({ setToggle }) => {
+  const [formData, setFormData] = useState({});
+
+  const handelSubmit = (e) => {
+    let { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handelChnage = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await api.post("/api/auth/register", formData);
+      console.log(res);
+    } catch (error) {
+      console.log("error in register api", error);
+    }
+  };
+
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800">
           Create Account
@@ -12,13 +30,14 @@ const Register = ({ setToggle }) => {
           Sign up to get started
         </p>
 
-        <form className="space-y-5">
+        <form onSubmit={handelSubmit} className="space-y-5">
           <div>
             <label className="block mb-2 font-medium text-gray-700">
               Full Name
             </label>
 
             <input
+              onChange={handelChnage}
               type="text"
               placeholder="Enter your full name"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -31,6 +50,7 @@ const Register = ({ setToggle }) => {
             </label>
 
             <input
+              onChange={handelChnage}
               type="email"
               placeholder="Enter your email"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -43,6 +63,7 @@ const Register = ({ setToggle }) => {
             </label>
 
             <input
+              onChange={handelChnage}
               type="password"
               placeholder="Create a password"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -68,7 +89,7 @@ const Register = ({ setToggle }) => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
